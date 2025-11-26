@@ -88,3 +88,5 @@ For production deployment:
 ---
 
 **Note**: This app uses local file storage. For cloud-based storage, you can integrate with services like Google Sheets, Airtable, or a database.
+
+<!-- Deployed to Vercel: 2025-11-26 -->

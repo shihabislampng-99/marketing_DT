@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Colors derived from Stitch The Digital Atrium */
+  --bg-nav: #1a1a2e; /* Global Navigation */
+  --bg-feed: #fcf8ff; /* List/Feed View */
+  --bg-detail: #ffffff; /* Detail Component */
+  
+  --text-on-dark: #ffffff;
+  --text-on-light: #1a1a2e;
+  --text-muted: #63627a;
+  
+  --surface-low: #f5f2ff;
+  --surface-high: #e8e5ff;
+  --surface-highest: #e2e0fc;
+  
+  --primary: #f8f8f8;
+  --whatsapp: #009945;
+  --instagram-grad: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  --messenger: #0084ff;
+  
+  --glass-bg: rgba(226, 224, 252, 0.7);
+  --glass-blur: 12px;
+  
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-on-light);
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-feed);
+}
+
+h1, h2, h3, h4, h5, h6, .display-font {
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Layout Utilities */
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.main-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Three-Panel Architecture */
+.panel-nav {
+  width: 80px;
+  background-color: var(--bg-nav);
+  color: var(--text-on-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  z-index: 10;
+}
+
+.panel-feed {
+  width: 380px;
+  background-color: var(--bg-feed);
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.panel-detail {
+  flex: 1;
+  background-color: var(--bg-detail);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+/* Component Classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+button {
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+/* No 1px borders - defined strictly through tonal background shift */
+.card {
+  background-color: var(--surface-low);
+  border-radius: 12px;
+  padding: 16px;
+  transition: background-color var(--transition);
+  border: none;
+}
+
+.card:hover {
+  background-color: var(--surface-high);
+}
+
+.input-field {
+  background-color: var(--surface-low);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  transition: background-color var(--transition);
+  outline: none;
+  width: 100%;
+  color: var(--text-on-light);
+}
+
+.input-field:focus {
+  background-color: var(--surface-high);
+}

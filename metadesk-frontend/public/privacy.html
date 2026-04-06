@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Hide & Style by Juhdi</title>
+  <meta name="description" content="Privacy Policy for Hide & Style messaging and customer support platform powered by Jinn." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #334155;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .brand { font-weight: 700; font-size: 1.15rem; color: #0f172a; }
+    .brand span { color: #6366f1; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem 3rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      color: #94a3b8;
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      margin-bottom: 1rem;
+      background: rgba(99,102,241,0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 820px;
+      margin: -2rem auto 4rem;
+      padding: 0 1.5rem;
+      position: relative;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 2.5rem 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Sections ── */
+    .section { margin-bottom: 2.25rem; }
+    .section:last-child { margin-bottom: 0; }
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h2 .num {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: white;
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    p { color: #475569; font-size: 0.95rem; margin-bottom: 0.85rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul { padding-left: 0; list-style: none; margin-bottom: 0.85rem; }
+    ul li {
+      color: #475569;
+      font-size: 0.95rem;
+      padding: 0.35rem 0 0.35rem 1.6rem;
+      position: relative;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0.4rem; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #6366f1;
+    }
+    strong { color: #0f172a; font-weight: 600; }
+    a { color: #3b82f6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0; }
+
+    /* ── Platforms grid ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin: 0.75rem 0;
+    }
+    .platform-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: #334155;
+    }
+    .platform-item strong { display: block; color: #0f172a; margin-bottom: 0.2rem; }
+
+    /* ── Contact box ── */
+    .contact-box {
+      background: linear-gradient(135deg, #eff6ff, #eef2ff);
+      border: 1px solid #c7d2fe;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .contact-box h3 { font-size: 1.05rem; font-weight: 700; color: #1e293b; margin-bottom: 0.35rem; }
+    .contact-box p { color: #64748b; font-size: 0.9rem; margin: 0; }
+    .contact-box a { font-weight: 600; color: #6366f1; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .card { padding: 1.5rem 1.25rem; }
+      header { padding: 0.75rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">H</div>
+    <span class="brand">Hide &amp; <span>Style</span></span>
+  </header>
+
+  <div class="hero">
+    <div class="badge">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p>Last updated: April 4, 2026 &nbsp;·&nbsp; Effective immediately</p>
+  </div>
+
+  <main>
+    <div class="card">
+
+      <div class="section">
+        <p>
+          This Privacy Policy describes how <strong>Hide &amp; Style</strong> ("we," "our," or "us"), operated by <strong>Juhdi</strong>, collects, uses, and protects information when customers interact with us through Facebook Messenger, Instagram Direct, WhatsApp, or our website. We use a platform called <strong>Jinn</strong> to manage customer communications. By messaging us, you agree to this policy.
+        </p>
+      </div>
+
+      <hr />
+
+      <div class="section">
+        <h2><span class="num">1</span> Information We Collect</h2>
+        <ul>
+          <li><strong>Messages &amp; Conversations:</strong> Text, images, and files you send to us via Messenger, Instagram, or WhatsApp.</li>
+          <li><strong>Platform Identity:</strong> Your name and platform user ID as provided by Facebook/Meta when you message us.</li>
+          <li><strong>Message Metadata:</strong> Timestamps, read receipts, and platform identifiers.</li>
+          <li><strong>Inquiry Details:</strong> Product questions, order information, or support requests you share voluntarily.</li>
+        </ul>
+        <p>We do <strong>not</strong> collect payment information, passwords, or any data beyond what is necessary to respond to your messages.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">2</span> How We Use Your Information</h2>
+        <ul>
+          <li>To read, manage, and respond to your customer support messages</li>
+          <li>To generate AI-assisted replies that are relevant to your question</li>
+          <li>To maintain a conversation history so we can provide context-aware support</li>
+          <li>To track and improve our customer service performance</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">3</span> AI-Powered Messaging</h2>
+        <p>
+          We use Artificial Intelligence to help our team respond to your messages faster and more accurately. Here's what that means for you:
+        </p>
+        <ul>
+          <li>Your message may be processed by an AI system to generate a draft reply</li>
+          <li>AI responses are grounded in our product and business information (FAQs, product catalog)</li>
+          <li>A human agent may review and edit AI responses before sending</li>
+          <li>You can always request a human agent by saying "speak to a person"</li>
+          <li>We do <strong>not</strong> use your conversations to train AI models</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">4</span> Third-Party Services</h2>
+        <p>We work with the following trusted services to operate our messaging platform:</p>
+        <div class="platform-grid">
+          <div class="platform-item"><strong>Meta (Facebook/Instagram)</strong>Messaging infrastructure and API</div>
+          <div class="platform-item"><strong>WhatsApp Business</strong>Customer messaging channel</div>
+          <div class="platform-item"><strong>Supabase</strong>Secure data storage</div>
+          <div class="platform-item"><strong>OpenRouter / Groq</strong>AI language model processing</div>
+          <div class="platform-item"><strong>Render</strong>Backend server hosting</div>
+          <div class="platform-item"><strong>Netlify</strong>Frontend application hosting</div>
+        </div>
+        <p>Each service has its own privacy policy. We share only the minimum data necessary for them to operate.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">5</span> Meta Platform Compliance</h2>
+        <p>
+          Our use of Meta's APIs complies with <a href="https://developers.facebook.com/terms/" target="_blank" rel="noopener">Meta's Platform Terms</a> and <a href="https://www.facebook.com/about/privacy/" target="_blank" rel="noopener">Meta's Privacy Policy</a>. Specifically:
+        </p>
+        <ul>
+          <li>We only access messaging data to provide customer support</li>
+          <li>We do not use Meta platform data for advertising or tracking</li>
+          <li>We do not sell or share your data with third parties for their marketing purposes</li>
+          <li>Message data is used solely for responding to your inquiries</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">6</span> Data Retention</h2>
+        <p>
+          We retain conversation history for up to <strong>12 months</strong> to provide consistent support. After this period, or upon your request, your data is permanently deleted from our systems.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">7</span> Data Security</h2>
+        <p>
+          Your data is encrypted in transit (HTTPS/TLS) and at rest. Access is restricted to authorized personnel only. We use industry-standard security practices and our hosting providers (Supabase, Render) maintain SOC 2 compliance.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">8</span> Your Rights</h2>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of the conversation data we hold about you</li>
+          <li><strong>Deletion:</strong> Request deletion of your message history at any time</li>
+          <li><strong>Opt-out of AI:</strong> Request to be handled by a human agent only</li>
+          <li><strong>Correction:</strong> Ask us to correct any incorrect information</li>
+        </ul>
+        <p>To exercise any of these rights, contact us at the email below.</p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">9</span> Children's Privacy</h2>
+        <p>
+          Our services are not directed to children under 13. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately.
+        </p>
+      </div>
+
+      <div class="section">
+        <h2><span class="num">10</span> Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. Any material changes will be communicated through our messaging channels or this page. Continued use of our messaging services after changes constitutes acceptance of the updated policy.
+        </p>
+      </div>
+
+      <div class="contact-box">
+        <h3>Questions About This Policy?</h3>
+        <p>Contact us at <a href="mailto:shihab@juhdi.com">shihab@juhdi.com</a><br />
+        or message us directly on <a href="https://www.facebook.com/hidenstyle" target="_blank">Facebook</a> or <a href="https://www.instagram.com/_hidenstyle" target="_blank">Instagram</a>.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Hide &amp; Style by Juhdi &nbsp;·&nbsp; All rights reserved &nbsp;·&nbsp; Dhaka, Bangladesh
+  </footer>
+
+</body>
+</html>

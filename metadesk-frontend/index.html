@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jinn - Unified Messaging</title>
+    <!-- Stitch Design System Scripts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .instagram-gradient {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e0fc;
+            border-radius: 10px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #45455b;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-variant": "#e2e0fc",
+                      "secondary-fixed": "#e2e0fc",
+                      "primary-container": "#00125a",
+                      "inverse-primary": "#bac3ff",
+                      "tertiary-fixed": "#66ff8e",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#dad7f3",
+                      "tertiary-fixed-dim": "#3de273",
+                      "on-primary": "#ffffff",
+                      "primary": "#000007",
+                      "tertiary-container": "#00220a",
+                      "outline-variant": "#c8c5cd",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#1a1a2e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#1a1a2e",
+                      "inverse-surface": "#2f2e43",
+                      "surface-container-high": "#e8e5ff",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "surface-container": "#efecff",
+                      "on-secondary-container": "#63627a",
+                      "on-primary-fixed-variant": "#0031c4",
+                      "inverse-on-surface": "#f2efff",
+                      "outline": "#78767d",
+                      "on-primary-fixed": "#001159",
+                      "background": "#fcf8ff",
+                      "on-background": "#1a1a2e",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e2e0fc",
+                      "on-secondary-fixed-variant": "#45455b",
+                      "on-tertiary-fixed": "#002109",
+                      "secondary-container": "#e2e0fc",
+                      "on-primary-container": "#5d78ff",
+                      "secondary-fixed-dim": "#c6c4df",
+                      "on-tertiary-container": "#009945",
+                      "surface": "#fcf8ff",
+                      "tertiary": "#000200",
+                      "surface-bright": "#fcf8ff",
+                      "primary-fixed": "#dee1ff",
+                      "primary-fixed-dim": "#bac3ff",
+                      "on-tertiary-fixed-variant": "#005322",
+                      "surface-tint": "#2e4edc",
+                      "on-surface-variant": "#47464c",
+                      "surface-container-low": "#f5f2ff",
+                      "error-container": "#ffdad6",
+                      "secondary": "#5d5c74"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope", "sans-serif"],
+                      "body": ["Inter", "sans-serif"],
+                      "label": ["Inter", "sans-serif"]
+              }
+            },
+          },
+        }
+    </script>
+  </head>
+  <body class="bg-background text-on-background font-body h-screen flex flex-col overflow-hidden">
+    <div id="root" class="h-full w-full overflow-hidden"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+TOPIC: [Product Name] - PA [Product ID]
+
+CONTENT:
+Product: [Full Name]
+Price: [Price] BDT
+Sizes Available: [Sizes]
+Category: [Category]
+
+Visual Description (for image matching):
+- Color: [Primary Color] upper with [Secondary Color] sole/base
+- Leather: [Texture] — e.g., "smooth genuine leather", "perforated textured grain", "matte moccasin leather"
+- Sole: [Sole Color and type] — e.g., "black TPR rubber sole with tread grip", "tan rubber flat sole"
+- Style: [Type] — e.g., "slip-on loafer", "lace-up derby", "penny loafer with strap"
+- Key Visual Details: [Distinctive marks] — e.g., "decorative penny strap across front", "hand-cut perforations on toe", "embroidered PA logo on tongue", "tassel on front", "heel tab"
+- Toe Shape: [Round / Slightly pointed / Square]
+- Interior: [Lining color] — e.g., "orange contrast lining visible at top"
+- Packaging/Combo: [If combo, describe what's included]
+
+Customer Questions This Product Answers:
+- What is the [color] loafer with [distinctive detail]?
+- How much is the [color] slip-on?
+- Do you have the shoe from [Facebook post/video description]?

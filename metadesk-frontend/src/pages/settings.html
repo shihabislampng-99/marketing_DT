@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jinn Settings</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e2e0fc",
+                    "secondary-fixed": "#e2e0fc",
+                    "primary-container": "#00125a",
+                    "inverse-primary": "#bac3ff",
+                    "tertiary-fixed": "#66ff8e",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#dad7f3",
+                    "tertiary-fixed-dim": "#3de273",
+                    "on-primary": "#ffffff",
+                    "primary": "#000007",
+                    "tertiary-container": "#00220a",
+                    "outline-variant": "#c8c5cd",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#1a1a2e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#1a1a2e",
+                    "inverse-surface": "#2f2e43",
+                    "surface-container-high": "#e8e5ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container": "#efecff",
+                    "on-secondary-container": "#63627a",
+                    "on-primary-fixed-variant": "#0031c4",
+                    "inverse-on-surface": "#f2efff",
+                    "outline": "#78767d",
+                    "on-primary-fixed": "#001159",
+                    "background": "#fcf8ff",
+                    "on-background": "#1a1a2e",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e2e0fc",
+                    "on-secondary-fixed-variant": "#45455b",
+                    "on-tertiary-fixed": "#002109",
+                    "secondary-container": "#e2e0fc",
+                    "on-primary-container": "#5d78ff",
+                    "secondary-fixed-dim": "#c6c4df",
+                    "on-tertiary-container": "#009945",
+                    "surface": "#fcf8ff",
+                    "tertiary": "#000200",
+                    "surface-bright": "#fcf8ff",
+                    "primary-fixed": "#dee1ff",
+                    "primary-fixed-dim": "#bac3ff",
+                    "on-tertiary-fixed-variant": "#005322",
+                    "surface-tint": "#2e4edc",
+                    "on-surface-variant": "#47464c",
+                    "surface-container-low": "#f5f2ff",
+                    "error-container": "#ffdad6",
+                    "secondary": "#5d5c74"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .instagram-gradient {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl shadow-sm flex justify-between items-center w-full px-6 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tight text-slate-900 brand-font">Jinn</span>
+<div class="hidden md:flex items-center gap-6">
+<span class="font-manrope text-sm font-medium text-slate-500">142 conversations</span>
+<span class="font-manrope text-sm font-medium text-slate-500">28 active today</span>
+<span class="font-manrope text-sm font-medium text-slate-500">89% AI-handled</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors">
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100/50 transition-colors text-blue-600 font-semibold">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User Avatar" data-alt="Close up portrait of a professional man with a friendly expression in clean office lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXK66xynBplB6mY-4F6Zd2TWIScgM0uDccVN-ArGMKYcsD8ycU9E-PBzyC4lhkDt-VS7GY6Fvgqd-5Qx7n8mRCx1vm_bA4kWM6a6_m7sCvM5MGEqwO4oeHifKIEWcJUYcWoq5UE8rhHxy0z114o47aFMwcFH6YoFgSnQ4XCmSP3EMFQttHVmIa4VH57oWGHBH2zmA1aAfoOM4uGFYBF5F7oMPQ1wGRK6wpJLseIr-xkex1CBbzTGmLKG9xIIF0gCBHuWJSBnMPW5ce"/>
+</div>
+</div>
+</nav>
+<!-- Main Layout Shell -->
+<main class="pt-16 min-h-screen flex">
+<!-- SideNav (Internal Settings Navigation) -->
+<aside class="hidden md:flex flex-col w-[280px] fixed left-0 top-16 bottom-0 bg-[#1a1a2e] py-6 gap-2">
+<div class="px-6 mb-6">
+<p class="font-manrope uppercase tracking-wider text-[11px] font-bold text-slate-400">Settings Categories</p>
+</div>
+<a class="mx-4 flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-600/10 text-blue-400 border-r-2 border-blue-500 transition-all" href="#api">
+<span class="material-symbols-outlined" data-icon="api">api</span>
+<span class="font-manrope text-[13px] font-bold uppercase tracking-wider">API Connections</span>
+</a>
+<a class="mx-4 flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-all" href="#ai">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-manrope text-[13px] font-bold uppercase tracking-wider">AI Configuration</span>
+</a>
+<a class="mx-4 flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-all" href="#knowledge">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+<span class="font-manrope text-[13px] font-bold uppercase tracking-wider">Knowledge Base</span>
+</a>
+<div class="mt-auto px-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-all" href="#help">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-manrope text-[13px] font-bold uppercase tracking-wider">Support</span>
+</a>
+</div>
+</aside>
+<!-- Content Canvas -->
+<section class="flex-1 ml-0 md:ml-[280px] p-8 max-w-5xl mx-auto space-y-12">
+<!-- Page Header -->
+<header class="mb-12">
+<h1 class="text-3xl font-extrabold tracking-tight text-on-surface">Settings</h1>
+<p class="text-on-surface-variant font-body mt-2">Manage your platform integrations, AI behavior, and data sources.</p>
+</header>
+<!-- API Connections Section -->
+<div class="space-y-6" id="api">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="hub">hub</span>
+<h2 class="text-xl font-bold font-headline uppercase tracking-wide text-on-surface-variant">API Connections</h2>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<!-- Messaging Channels -->
+<div class="bg-surface-container-high rounded-xl p-6 space-y-6">
+<h3 class="text-sm font-bold text-on-surface/60 uppercase tracking-widest">Social Channels</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">WhatsApp Token</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" type="password" value="••••••••••••••••"/>
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">Save</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Instagram Token</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" type="password" value="••••••••••••••••"/>
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">Save</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Messenger Token</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" type="password" value="••••••••••••••••"/>
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">Save</button>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Providers -->
+<div class="bg-surface-container-high rounded-xl p-6 space-y-6">
+<h3 class="text-sm font-bold text-on-surface/60 uppercase tracking-widest">AI LLM Providers</h3>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">OpenRouter API Key</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" placeholder="sk-or-v1-..." type="password"/>
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">Save</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Groq API Key</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" placeholder="gsk_..." type="password"/>
+<button class="bg-on-primary-container text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity">Save</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Configuration Section -->
+<div class="space-y-6" id="ai">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="psychology">psychology</span>
+<h2 class="text-xl font-bold font-headline uppercase tracking-wide text-on-surface-variant">AI Configuration</h2>
+</div>
+<div class="bg-surface-container-high rounded-xl p-6 space-y-8">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="flex-1 space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Business Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" type="text" value="Jinn Solutions Inc."/>
+</div>
+<div class="flex items-center gap-4 px-4 py-3 bg-surface-container-low rounded-xl">
+<span class="text-sm font-medium text-on-surface">Default AI for new contacts</span>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-secondary-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-on-primary-container"></div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-container" data-icon="chat">chat</span>
+<label class="text-xs font-bold text-on-surface-variant uppercase">WhatsApp System Prompt</label>
+</div>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all resize-none" rows="4">You are a professional assistant for Jinn. Keep responses brief and friendly. Use emojis sparingly. Answer based ONLY on the knowledge base provided.</textarea>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[18px] text-[#d6249f]" data-icon="photo_camera">photo_camera</span>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Instagram System Prompt</label>
+</div>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all resize-none" rows="4">Adopt a vibrant, visual, and highly engaging tone. Use relevant hashtags and interactive language. Focus on brand aesthetics.</textarea>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[18px] text-blue-500" data-icon="send">send</span>
+<label class="text-xs font-bold text-on-surface-variant uppercase">Messenger System Prompt</label>
+</div>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all resize-none" rows="4">Focus on rapid support and utility. Use structured lists where helpful. Be direct and concise.</textarea>
+</div>
+</div>
+</div>
+</div>
+<!-- Knowledge Base Section -->
+<div class="space-y-6 pb-20" id="knowledge">
+<div class="flex justify-between items-end">
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="auto_stories">auto_stories</span>
+<h2 class="text-xl font-bold font-headline uppercase tracking-wide text-on-surface-variant">Knowledge Base</h2>
+</div>
+<p class="text-sm text-on-surface-variant max-w-md">Provide specific data chunks for the AI to reference when answering customer inquiries.</p>
+</div>
+<button class="flex items-center gap-2 instagram-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-pink-500/20 hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        Add New Chunk
+                    </button>
+</div>
+<div class="bg-surface-container-high rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest/50">
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Topic</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider">Preview</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider text-center">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant/30">
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="px-6 py-4 font-semibold text-sm">Pricing Plans 2024</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Jinn offers three tiers: Starter ($29/mo), Pro ($99/mo), and...</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-[10px] font-bold uppercase tracking-widest">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-on-surface-variant hover:text-on-primary-container hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="px-6 py-4 font-semibold text-sm">Return Policy</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Customers can request a full refund within 14 days of purchase if...</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full bg-on-tertiary-container/10 text-on-tertiary-container text-[10px] font-bold uppercase tracking-widest">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-on-surface-variant hover:text-on-primary-container hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="px-6 py-4 font-semibold text-sm">New Product Launch Q3</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">The upcoming Jinn Mobile App is scheduled for release on Sept 15...</td>
+<td class="px-6 py-4">
+<div class="flex justify-center">
+<span class="px-3 py-1 rounded-full bg-on-secondary-container/10 text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-on-surface-variant hover:text-on-primary-container hover:bg-surface-container-highest rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-lg transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Modal Mockup (Add New Chunk) - Rendered as part of canvas for layout demonstration -->
+<div class="fixed inset-0 z-[60] bg-on-surface/40 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+<div class="bg-surface-container-lowest w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden">
+<div class="p-6 border-b border-surface-variant/30 flex justify-between items-center">
+<h3 class="text-lg font-bold font-headline">Add Knowledge Chunk</h3>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface" data-icon="close">close</button>
+</div>
+<div class="p-6 space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Topic</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all" placeholder="e.g. Shipping Details" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold text-on-surface-variant uppercase ml-1">Content</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-on-primary-container focus:bg-surface-container-lowest transition-all resize-none" placeholder="Paste your knowledge base text here..." rows="8"></textarea>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low flex justify-end gap-3">
+<button class="px-6 py-2 rounded-xl text-sm font-semibold text-on-surface-variant hover:bg-surface-container-highest transition-colors">Cancel</button>
+<button class="bg-on-primary-container text-white px-8 py-2 rounded-xl text-sm font-bold shadow-lg shadow-blue-500/20 hover:opacity-90 transition-opacity">Save Chunk</button>
+</div>
+</div>
+</div>
+</body></html>

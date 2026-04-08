@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import api from '../api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 import { SYSTEM_PROMPT_TEMPLATES } from './Inbox';
 
 // ── Toast helper ─────────────────────────────────────────────────────────────
@@ -61,16 +62,26 @@ function CharCount({ text, limit = 2000 }) {
 }
 
 export default function Settings() {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/login');
+  };
 
   const [settings, setSettings] = useState({
     whatsapp_token: '',
     whatsapp_phone_number_id: '',
     instagram_token: '',
     messenger_page_token: '',
+    facebook_page_id: '',
+    instagram_account_id: '',
     openrouter_api_key: '',
     groq_api_key: '',
     business_name: '',
     default_ai_enabled: false,
+    ai_image_query_enabled: false,
     ai_system_prompt_whatsapp: '',
     ai_system_prompt_instagram: '',
     ai_system_prompt_messenger: ''
@@ -128,6 +139,7 @@ export default function Settings() {
       await api.patch('/settings', {
         business_name: settings.business_name,
         default_ai_enabled: settings.default_ai_enabled,
+        ai_image_query_enabled: settings.ai_image_query_enabled,
         ai_system_prompt_whatsapp: settings.ai_system_prompt_whatsapp,
         ai_system_prompt_instagram: settings.ai_system_prompt_instagram,
         ai_system_prompt_messenger: settings.ai_system_prompt_messenger,
@@ -203,30 +215,134 @@ export default function Settings() {
   };
 
   // ── CSV Import ────────────────────────────────────────────────────────────
+  const downloadSampleCsv = () => {
+    const csvContent = "data:text/csv;charset=utf-8,Topic,Content\n"
+      + "Return Policy,\"We accept returns within 30 days. Items must be in original condition, including tags.\"\n"
+      + "Pricing,Our premium shirts start at $45. We offer bulk discounts for 10+ items.";
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "jinn_knowledge_template.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleCsvImport = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = async (ev) => {
-      const lines = ev.target.result.split('\n').filter(Boolean);
-      const header = lines[0].split(',').map(h => h.trim().toLowerCase());
-      const topicIdx = header.indexOf('topic');
-      const contentIdx = header.indexOf('content');
-      if (topicIdx < 0 || contentIdx < 0) {
-        showToast('CSV must have "Topic" and "Content" columns', 'error');
+      let csvStr = ev.target.result;
+      if (csvStr.charCodeAt(0) === 0xFEFF) csvStr = csvStr.substring(1);
+
+      const allLines = csvStr.split(/\r?\n/).filter(line => line.trim());
+      if (allLines.length < 2) {
+        showToast('CSV file is empty or too short', 'error');
         return;
       }
-      let imported = 0;
-      for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(',');
-        const topic = cols[topicIdx]?.trim();
-        const content = cols[contentIdx]?.trim();
-        if (topic && content) {
-          try { await api.post('/knowledge', { topic, content }); imported++; } catch {}
+
+      const splitRow = (row) => {
+        const result = [];
+        let cell = '';
+        let inQuotes = false;
+        for (let i = 0; i < row.length; i++) {
+          const char = row[i];
+          if (char === '"' && row[i+1] === '"') { cell += '"'; i++; }
+          else if (char === '"') inQuotes = !inQuotes;
+          else if (char === ',' && !inQuotes) { result.push(cell.trim()); cell = ''; }
+          else cell += char;
+        }
+        result.push(cell.trim());
+        return result;
+      };
+
+      // Improved header detection: Score rows based on matches to find the best candidate
+      let headerIdx = -1;
+      let maxScore = 0;
+      let topicKeywords = ['topic', 'name', 'product', 'title', 'item'];
+      let contentKeywords = ['content', 'description', 'details', 'info', 'text'];
+      const combinedKeywords = [...topicKeywords, ...contentKeywords];
+
+      for (let i = 0; i < Math.min(allLines.length, 5); i++) {
+        const row = splitRow(allLines[i]).map(h => h.toLowerCase().replace(/[^a-z]/g, ''));
+        const score = row.reduce((acc, h) => acc + (combinedKeywords.includes(h) ? 1 : 0), 0);
+        
+        // Ensure it has at least one of each to be a valid candidate
+        const hasTopic = row.some(h => topicKeywords.includes(h));
+        const hasContent = row.some(h => contentKeywords.includes(h));
+        
+        if (hasTopic && hasContent && score > maxScore) {
+          maxScore = score;
+          headerIdx = i;
         }
       }
-      fetchChunks();
-      showToast(`Imported ${imported} chunks ✓`);
+
+      if (headerIdx === -1) {
+        showToast('Could not find Topic/Name and Content/Description columns', 'error');
+        return;
+      }
+
+      const header = splitRow(allLines[headerIdx]);
+      const lowerHeader = header.map(h => h.toLowerCase().replace(/[^a-z]/g, ''));
+      
+      // Determine indices
+      const topicIdx = lowerHeader.findIndex(h => topicKeywords.includes(h));
+      const contentIdx = lowerHeader.findIndex(h => contentKeywords.includes(h));
+      
+      // Other columns to include in "Content" to enrich AI knowledge
+      const otherIndices = lowerHeader.map((h, idx) => {
+        if (idx === topicIdx || idx === contentIdx || !h || h === 'id') return -1;
+        return idx;
+      }).filter(idx => idx !== -1);
+
+      const items = [];
+      for (let i = headerIdx + 1; i < allLines.length; i++) {
+        const row = splitRow(allLines[i]);
+        const topic = row[topicIdx];
+        if (!topic) continue;
+
+        let mainContent = row[contentIdx] || '';
+        // Append additional context from other columns
+        const additionalContext = otherIndices
+          .map(idx => row[idx] ? `${header[idx]}: ${row[idx]}` : null)
+          .filter(Boolean)
+          .join('\n');
+        
+        const finalContent = additionalContext 
+          ? `${mainContent}\n\n--- Additional Details ---\n${additionalContext}`
+          : mainContent;
+
+        if (topic && finalContent) {
+          items.push({ topic, content: finalContent });
+        }
+      }
+
+      if (items.length === 0) {
+        showToast('No valid data found in CSV', 'error');
+        return;
+      }
+
+      // AS REQUESTED: Combine everything into ONE chunk if multiple items found
+      let finalItems = items;
+      if (items.length > 1) {
+        const combinedContent = items.map(it => `--- ${it.topic} ---\n${it.content}`).join('\n\n');
+        finalItems = [{ topic: 'Product catalog', content: combinedContent }];
+      }
+
+      try {
+        const res = await api.post('/knowledge/bulk', { items: finalItems });
+        if (res.data.success) {
+          fetchChunks();
+          showToast(`Imported ${items.length} rows into 1 catalog chunk ✓`);
+        }
+      } catch (err) {
+        // Even if there is an error (like a timeout), fetch chunks anyway 
+        // to show what was successfully saved to the DB
+        fetchChunks();
+        console.error('Bulk import failed:', err);
+        showToast('Processing catalog chunk...', 'info');
+      }
     };
     reader.readAsText(file);
     e.target.value = '';
@@ -275,12 +391,24 @@ export default function Settings() {
             {label}
           </a>
         ))}
-        {/* Divider + Back pinned bottom */}
-        <div className="mt-auto mx-4 pt-4 border-t border-white/10">
+        {/* Divider + Back + Sign Out pinned bottom */}
+        <div className="mt-auto mx-4 pt-4 border-t border-white/10 flex flex-col gap-1">
           <Link to="/" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-slate-200 transition-all duration-200 text-[12px] font-bold uppercase tracking-wider font-manrope">
             <span className="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
             Back to Inbox
           </Link>
+          {user && (
+            <div className="px-4 py-2">
+              <p className="text-[10px] text-slate-500 truncate mb-2">{user.email}</p>
+              <button
+                onClick={handleSignOut}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all text-[11px] font-bold uppercase tracking-wider"
+              >
+                <span className="material-symbols-outlined text-[16px]">logout</span>
+                Sign Out
+              </button>
+            </div>
+          )}
         </div>
       </aside>
 
@@ -303,27 +431,42 @@ export default function Settings() {
             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Social Channels</h3>
             <div className="grid md:grid-cols-2 gap-5">
               {[
+                { label: 'Facebook Page ID', key: 'facebook_page_id' },
+                { label: 'Instagram Account ID', key: 'instagram_account_id' },
                 { label: 'WhatsApp Token', key: 'whatsapp_token' },
                 { label: 'WhatsApp Phone ID', key: 'whatsapp_phone_number_id' },
                 { label: 'Instagram Token', key: 'instagram_token' },
                 { label: 'Messenger Page Token', key: 'messenger_page_token' },
-              ].map(({ label, key }) => (
-                <div key={key} className="space-y-1.5">
-                  <label className={labelClass}>{label}</label>
-                  <div className="flex gap-2">
-                    <PasswordInput
-                      className={inputClass}
-                      value={settings[key] || ''}
-                      onChange={e => setSettings({ ...settings, [key]: e.target.value })}
-                    />
-                    <button
-                      onClick={() => handleSaveField(key, settings[key])}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shrink-0">
-                      Save
-                    </button>
+              ].map(({ label, key }) => {
+                const isId = ['facebook_page_id', 'instagram_account_id', 'whatsapp_phone_number_id'].includes(key);
+                return (
+                  <div key={key} className="space-y-1.5">
+                    <label className={labelClass}>{label}</label>
+                    <div className="flex gap-2">
+                      {isId ? (
+                        <input
+                          className={inputClass}
+                          type="text"
+                          placeholder={`Enter ${label}`}
+                          value={settings[key] || ''}
+                          onChange={e => setSettings(s => ({ ...s, [key]: e.target.value }))}
+                        />
+                      ) : (
+                        <PasswordInput
+                          className={inputClass}
+                          value={settings[key] || ''}
+                          onChange={e => setSettings(s => ({ ...s, [key]: e.target.value }))}
+                        />
+                      )}
+                      <button
+                        onClick={() => handleSaveField(key, settings[key])}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shrink-0">
+                        Save
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -400,7 +543,11 @@ export default function Settings() {
               </div>
               <div className="flex items-center gap-3 bg-surface-container-low px-4 py-3 rounded-xl self-start md:mt-6">
                 <span className="text-sm font-medium text-on-surface">Default AI for new contacts</span>
-                <button onClick={() => setSettings(s => ({ ...s, default_ai_enabled: !s.default_ai_enabled }))}
+                <button onClick={async () => {
+                  const newVal = !settings.default_ai_enabled;
+                  setSettings(s => ({ ...s, default_ai_enabled: newVal }));
+                  await handleSaveField('default_ai_enabled', newVal);
+                }}
                   className={`relative inline-flex w-11 h-6 rounded-full transition-colors duration-200 ${settings.default_ai_enabled ? 'bg-emerald-500' : 'bg-slate-300'}`}>
                   <span className={`inline-block w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-200 mt-0.5 ${settings.default_ai_enabled ? 'translate-x-5' : 'translate-x-0.5'}`}></span>
                 </button>
@@ -414,7 +561,11 @@ export default function Settings() {
                 <p className="text-sm font-semibold text-slate-800">AI Image Query</p>
                 <p className="text-xs text-slate-500 mt-0.5">When <strong>ON</strong>, the AI will visually analyze images sent by customers and match them to your Knowledge Base to answer product questions. When <strong>OFF</strong> (default), any image message automatically routes the chat to <strong>Manual / Needs Human</strong> mode for you to reply personally.</p>
               </div>
-              <button onClick={() => setSettings(s => ({ ...s, ai_image_query_enabled: !s.ai_image_query_enabled }))}
+              <button onClick={async () => {
+                const newVal = !settings.ai_image_query_enabled;
+                setSettings(s => ({ ...s, ai_image_query_enabled: newVal }));
+                await handleSaveField('ai_image_query_enabled', newVal);
+              }}
                 className={`relative inline-flex w-11 h-6 rounded-full transition-colors duration-200 shrink-0 mt-1 ${settings.ai_image_query_enabled ? 'bg-emerald-500' : 'bg-slate-300'}`}>
                 <span className={`inline-block w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-200 mt-0.5 ${settings.ai_image_query_enabled ? 'translate-x-5' : 'translate-x-0.5'}`}></span>
               </button>
@@ -528,6 +679,11 @@ export default function Settings() {
                 className="flex items-center gap-2 border border-slate-200 bg-white text-slate-600 px-4 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-50 transition-colors">
                 <span className="material-symbols-outlined text-[16px]" data-icon="upload_file">upload_file</span>
                 Import CSV
+              </button>
+              <button onClick={downloadSampleCsv}
+                className="flex items-center gap-2 hover:text-blue-600 text-slate-400 px-2 py-2.5 rounded-xl text-[10px] font-bold transition-colors">
+                <span className="material-symbols-outlined text-[14px]" data-icon="download">download</span>
+                Sample CSV
               </button>
               <button onClick={openAddModal}
                 className="flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20">

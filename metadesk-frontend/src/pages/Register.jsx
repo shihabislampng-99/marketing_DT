@@ -1,0 +1,294 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
+
+export default function Register() {
+  const { signUp } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (password !== confirm) {
+      setError('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
+      return;
+    }
+    setLoading(true);
+    try {
+      await signUp(email, password);
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <div style={styles.page}>
+        <div style={styles.orb1} />
+        <div style={styles.orb2} />
+        <div style={{ ...styles.card, textAlign: 'center' }}>
+          <div style={styles.successIcon}>✅</div>
+          <h2 style={{ ...styles.title, fontSize: '1.5rem' }}>Check your email</h2>
+          <p style={styles.subtitle}>
+            We sent a confirmation link to <strong style={{ color: '#a78bfa' }}>{email}</strong>.
+            Click the link to activate your account, then sign in.
+          </p>
+          <Link to="/login" style={{ ...styles.btn, display: 'block', textAlign: 'center', textDecoration: 'none', marginTop: '1.5rem' }}>
+            Go to Sign In
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles.page}>
+      <div style={styles.orb1} />
+      <div style={styles.orb2} />
+
+      <div style={styles.card}>
+        <div style={styles.logoWrap}>
+          <div style={styles.logoIcon}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="white"/>
+            </svg>
+          </div>
+          <span style={styles.logoText}>Jinn</span>
+        </div>
+
+        <h1 style={styles.title}>Create your account</h1>
+        <p style={styles.subtitle}>Start managing your Facebook page with AI</p>
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Email address</label>
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              style={styles.input}
+              onFocus={e => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={e => Object.assign(e.target.style, styles.input)}
+            />
+          </div>
+
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Password</label>
+            <input
+              type="password"
+              placeholder="At least 6 characters"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              style={styles.input}
+              onFocus={e => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={e => Object.assign(e.target.style, styles.input)}
+            />
+          </div>
+
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Confirm password</label>
+            <input
+              type="password"
+              placeholder="Repeat your password"
+              value={confirm}
+              onChange={e => setConfirm(e.target.value)}
+              required
+              style={styles.input}
+              onFocus={e => Object.assign(e.target.style, styles.inputFocus)}
+              onBlur={e => Object.assign(e.target.style, styles.input)}
+            />
+          </div>
+
+          {error && (
+            <div style={styles.errorBox}>
+              <span>⚠️ {error}</span>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={loading ? { ...styles.btn, ...styles.btnDisabled } : styles.btn}
+          >
+            {loading ? 'Creating account…' : 'Create Account'}
+          </button>
+        </form>
+
+        <p style={styles.loginLink}>
+          Already have an account?{' '}
+          <Link to="/login" style={styles.linkA}>Sign in</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  page: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
+    position: 'relative',
+    overflow: 'hidden',
+    fontFamily: "'Inter', 'Outfit', system-ui, sans-serif",
+  },
+  orb1: {
+    position: 'absolute',
+    top: '-120px',
+    right: '-120px',
+    width: '420px',
+    height: '420px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(168,85,247,0.35) 0%, transparent 70%)',
+    filter: 'blur(40px)',
+  },
+  orb2: {
+    position: 'absolute',
+    bottom: '-80px',
+    left: '-80px',
+    width: '380px',
+    height: '380px',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%)',
+    filter: 'blur(50px)',
+  },
+  card: {
+    position: 'relative',
+    zIndex: 10,
+    background: 'rgba(255,255,255,0.05)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: '24px',
+    padding: '2.5rem 2.25rem',
+    width: '100%',
+    maxWidth: '420px',
+    boxShadow: '0 32px 64px rgba(0,0,0,0.4)',
+    boxSizing: 'border-box',
+  },
+  successIcon: {
+    fontSize: '3rem',
+    marginBottom: '1rem',
+  },
+  logoWrap: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    marginBottom: '1.75rem',
+  },
+  logoIcon: {
+    width: '44px',
+    height: '44px',
+    borderRadius: '12px',
+    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0 4px 16px rgba(99,102,241,0.5)',
+  },
+  logoText: {
+    fontSize: '1.5rem',
+    fontWeight: '800',
+    color: '#fff',
+    letterSpacing: '-0.5px',
+  },
+  title: {
+    fontSize: '1.75rem',
+    fontWeight: '700',
+    color: '#fff',
+    margin: '0 0 0.4rem',
+    letterSpacing: '-0.5px',
+  },
+  subtitle: {
+    fontSize: '0.95rem',
+    color: 'rgba(255,255,255,0.55)',
+    margin: '0 0 2rem',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.25rem',
+  },
+  fieldGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  label: {
+    fontSize: '0.85rem',
+    fontWeight: '500',
+    color: 'rgba(255,255,255,0.7)',
+  },
+  input: {
+    padding: '0.75rem 1rem',
+    borderRadius: '12px',
+    border: '1px solid rgba(255,255,255,0.15)',
+    background: 'rgba(255,255,255,0.07)',
+    color: '#fff',
+    fontSize: '0.95rem',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+  },
+  inputFocus: {
+    padding: '0.75rem 1rem',
+    borderRadius: '12px',
+    border: '1px solid rgba(99,102,241,0.7)',
+    background: 'rgba(255,255,255,0.11)',
+    color: '#fff',
+    fontSize: '0.95rem',
+    outline: 'none',
+  },
+  errorBox: {
+    background: 'rgba(239,68,68,0.15)',
+    border: '1px solid rgba(239,68,68,0.4)',
+    borderRadius: '10px',
+    padding: '0.65rem 1rem',
+    color: '#fca5a5',
+    fontSize: '0.875rem',
+  },
+  btn: {
+    padding: '0.85rem',
+    borderRadius: '12px',
+    background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: '1rem',
+    border: 'none',
+    cursor: 'pointer',
+    marginTop: '0.5rem',
+    boxShadow: '0 4px 20px rgba(99,102,241,0.45)',
+  },
+  btnDisabled: {
+    opacity: 0.6,
+    cursor: 'not-allowed',
+  },
+  loginLink: {
+    textAlign: 'center',
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '0.875rem',
+    marginTop: '1.5rem',
+  },
+  linkA: {
+    color: '#a78bfa',
+    textDecoration: 'none',
+    fontWeight: '600',
+  },
+};

@@ -33,7 +33,10 @@ export default function Privacy() {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      width: '100%',
+      flex: 1,
+      height: '100vh',
+      overflowY: 'auto',
       background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
       fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
     }}>

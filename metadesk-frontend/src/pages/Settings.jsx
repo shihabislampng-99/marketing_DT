@@ -413,7 +413,7 @@ export default function Settings() {
       </aside>
 
       {/* Content */}
-      <section className="flex-1 ml-0 md:ml-[240px] p-6 md:p-10 max-w-4xl mx-auto space-y-14 h-screen overflow-y-auto custom-scrollbar pb-32">
+      <section className="flex-1 ml-0 md:ml-[240px] p-6 md:p-10 space-y-14 h-screen overflow-y-auto custom-scrollbar pb-32">
         <header className="mb-8">
           <h1 className="text-3xl font-extrabold tracking-tight text-on-surface">Settings</h1>
           <p className="text-on-surface-variant mt-1 text-sm">Manage integrations, AI behaviour, and knowledge base.</p>

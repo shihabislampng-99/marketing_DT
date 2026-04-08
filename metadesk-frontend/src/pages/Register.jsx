@@ -142,6 +142,7 @@ export default function Register() {
 const styles = {
   page: {
     minHeight: '100vh',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

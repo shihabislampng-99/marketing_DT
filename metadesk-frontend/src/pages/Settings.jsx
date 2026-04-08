@@ -29,6 +29,7 @@ function PasswordInput({ value, onChange, placeholder, className }) {
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        autoComplete="new-password"
       />
       <button
         type="button"
@@ -84,7 +85,8 @@ export default function Settings() {
     ai_image_query_enabled: false,
     ai_system_prompt_whatsapp: '',
     ai_system_prompt_instagram: '',
-    ai_system_prompt_messenger: ''
+    ai_system_prompt_messenger: '',
+    ai_response_delay: 15
   });
 
   const [chunks, setChunks] = useState([]);
@@ -143,6 +145,7 @@ export default function Settings() {
         ai_system_prompt_whatsapp: settings.ai_system_prompt_whatsapp,
         ai_system_prompt_instagram: settings.ai_system_prompt_instagram,
         ai_system_prompt_messenger: settings.ai_system_prompt_messenger,
+        ai_response_delay: settings.ai_response_delay,
       });
       showToast('AI Configuration saved ✓');
     } catch (e) {
@@ -603,6 +606,19 @@ export default function Settings() {
                 />
               </div>
             ))}
+
+            {/* AI Response Delay */}
+            <div className="flex flex-col md:flex-row gap-6 border-t border-slate-100 pt-6 mt-4">
+              <div className="flex-1 space-y-1.5">
+                <label className={labelClass}>AI Response Delay</label>
+                <p className="text-xs text-slate-500 mb-2">How long the AI should wait before replying (global). Single contacts can override this.</p>
+                <div className="flex items-center gap-3">
+                  <input className={inputClass + ' w-24 text-center font-mono'} type="number" min="0" max="120" value={settings.ai_response_delay ?? 15}
+                    onChange={e => setSettings({ ...settings, ai_response_delay: parseInt(e.target.value) || 0 })} placeholder="15" />
+                  <span className="text-sm font-semibold text-slate-600">seconds</span>
+                </div>
+              </div>
+            </div>
 
             <div className="flex justify-end pt-1">
               <button onClick={handleSaveAiConfig} disabled={savingAi}

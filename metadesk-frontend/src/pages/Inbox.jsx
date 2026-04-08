@@ -261,6 +261,28 @@ export default function Inbox() {
     }
   };
 
+  // ── Contact Setting Overrides ───────────────────────────────────────────────
+  const handleUpdateContactDelay = async (e) => {
+    if (!selectedContact) return;
+    let raw = e.target.value;
+    let delayVal = raw === '' ? null : parseInt(raw);
+
+    const prev = { ...selectedContact };
+    setSelectedContact({ ...selectedContact, ai_response_delay: delayVal });
+    
+    try {
+      const { data } = await api.patch(`/contacts/${selectedContact.id}`, { ai_response_delay: delayVal });
+      if (data.success) {
+        setContacts(contacts.map(c => c.id === selectedContact.id ? { ...c, ai_response_delay: delayVal } : c));
+        // Optional: showToast('Delay updated');
+      }
+    } catch (e) {
+      setSelectedContact(prev);
+      setContacts(contacts.map(c => c.id === prev.id ? prev : c));
+      showToast('Failed to update delay', 'error');
+    }
+  };
+
   // ─────────────────────────────────────────────────────────────────────────
   // RENDER
   // ─────────────────────────────────────────────────────────────────────────
@@ -798,6 +820,24 @@ export default function Inbox() {
                 />
                 <button onClick={addTag} className="bg-blue-600 text-white text-[10px] font-bold px-2 rounded-lg hover:bg-blue-700 transition-colors">Add</button>
               </div>
+            </div>
+
+            {/* AI Response Delay (P3.9 override) */}
+            <div className="px-5 py-3 border-b border-slate-100">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">AI Response Delay</p>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  min="0"
+                  className="w-16 text-xs text-center font-mono bg-slate-100 border-none rounded-lg px-2 py-1.5 outline-none focus:ring-1 focus:ring-blue-400"
+                  placeholder="Global"
+                  value={selectedContact.ai_response_delay ?? ''}
+                  onChange={e => setSelectedContact({ ...selectedContact, ai_response_delay: e.target.value === '' ? null : parseInt(e.target.value) })}
+                  onBlur={handleUpdateContactDelay}
+                />
+                <span className="text-[10px] text-slate-500 font-medium">seconds</span>
+              </div>
+              <p className="text-[9px] text-slate-400 mt-1">Leave blank to use the global setting from Settings.</p>
             </div>
 
             {/* Internal Notes (P3.9) */}

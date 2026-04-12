@@ -386,6 +386,7 @@ export default function Settings() {
         {[
           { href: '#api',       icon: 'hub',         label: 'API Connections' },
           { href: '#ai',        icon: 'smart_toy',   label: 'AI Config' },
+          { href: '#integrations', icon: 'extension', label: 'Integrations' },
           { href: '#knowledge', icon: 'database',    label: 'Knowledge Base' },
         ].map(({ href, icon, label }) => (
           <a key={href} href={href}
@@ -630,7 +631,70 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* ── Integrations (Steadfast) ─────────────────────────────────── */}
+        <div id="integrations" className="space-y-6">
+          <div className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-blue-500" data-icon="extension">extension</span>
+            <h2 className="text-lg font-bold uppercase tracking-wide text-slate-600">Integrations</h2>
+          </div>
+          
+          <div className="bg-surface-container-high rounded-2xl p-6 space-y-6">
+            <div className="flex items-center justify-between border-b border-surface-variant/30 pb-4">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-teal-600 text-[20px]" data-icon="local_shipping">local_shipping</span>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-800">Steadfast Courier</h3>
+                  <p className="text-xs text-slate-500">Allow AI to track parcels automatically using your API keys.</p>
+                </div>
+              </div>
+              <button onClick={async () => {
+                const newVal = !settings.steadfast_enabled;
+                setSettings(s => ({ ...s, steadfast_enabled: newVal }));
+                await handleSaveField('steadfast_enabled', newVal);
+              }}
+                className={`relative inline-flex w-11 h-6 rounded-full transition-colors duration-200 shrink-0 ${settings.steadfast_enabled ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                <span className={`inline-block w-5 h-5 bg-white rounded-full shadow transform transition-transform duration-200 mt-0.5 ${settings.steadfast_enabled ? 'translate-x-5' : 'translate-x-0.5'}`}></span>
+              </button>
+            </div>
+
+            {settings.steadfast_enabled && (
+              <div className="grid md:grid-cols-2 gap-5 pt-2">
+                <div className="space-y-1.5">
+                  <label className={labelClass}>API Key</label>
+                  <div className="flex gap-2">
+                    <PasswordInput
+                      className={inputClass}
+                      value={settings.steadfast_api_key || ''}
+                      onChange={e => setSettings({ ...settings, steadfast_api_key: e.target.value })}
+                      placeholder="Steadfast API Key"
+                    />
+                    <button onClick={() => handleSaveField('steadfast_api_key', settings.steadfast_api_key)}
+                      className="bg-blue-600 text-white px-3 py-2 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shrink-0">Save</button>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className={labelClass}>Secret Key</label>
+                  <div className="flex gap-2">
+                    <PasswordInput
+                      className={inputClass}
+                      value={settings.steadfast_secret_key || ''}
+                      onChange={e => setSettings({ ...settings, steadfast_secret_key: e.target.value })}
+                      placeholder="Steadfast Secret Key"
+                    />
+                    <button onClick={() => handleSaveField('steadfast_secret_key', settings.steadfast_secret_key)}
+                      className="bg-blue-600 text-white px-3 py-2 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shrink-0">Save</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* ── Quick Replies ────────────────────────────────────────────── */}
+
         <div id="quick-replies" className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
